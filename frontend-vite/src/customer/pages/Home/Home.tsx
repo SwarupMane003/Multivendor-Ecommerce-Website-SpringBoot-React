@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Banner from './Banner/Banner'
 import HomeCategory from './HomeCategory/HomeCategory'
 import TopBrand from './TopBrands/Grid'
 import ElectronicCategory from './Electronic Category/ElectronicCategory'
@@ -39,33 +38,37 @@ const Home = () => {
                 <TopBrand />
             </section>}
         {homePage.homePageData?.deals &&    <section className='pt-10'>
-            <h1 className='text-center text-lg lg:text-4xl font-bold text-[#00927c] pb-5 lg:pb-10'>Today's Deals</h1>
+            <h1 className='text-center text-lg lg:text-4xl font-black brand-gradient-text pb-5 lg:pb-10'>Today's Deals</h1>
                 <DealSlider/>
             </section>}
            {homePage.homePageData?.shopByCategories && <section className='flex flex-col justify-center items-center py-20 px-5 lg:px-20'>
-                <h1 className='text-lg lg:text-4xl font-bold text-[#00927c] pb-5 lg:pb-20'>SHOP BY CATEGORY</h1>
+                <h1 className='text-lg lg:text-4xl font-black brand-gradient-text pb-5 lg:pb-20'>Shop by Category</h1>
                 <HomeCategory />
             </section>}
-            <section className='lg:px-20 relative h-[200px] lg:h-[450px] object-cover'>
-                <img className='w-full h-full' src={"/seller_banner_image.jpg"} alt="" />
-                <div className='absolute top-1/2 left-4 lg:left-[15rem] transform  -translate-y-1/2 font-semibold lg:text-4xl space-y-3 '>
-                    <h1 className=''>
-                        Sell Your Product
+            <section className='brand-section'>
+              <div className='brand-section-inner brand-dark-band rounded-lg overflow-hidden grid lg:grid-cols-[0.9fr_1.1fr] min-h-[280px]'>
+                <div className='p-8 md:p-12 flex flex-col justify-center'>
+                    <p className='brand-kicker text-pink-200'>Seller marketplace</p>
+                    <h1 className='text-3xl md:text-5xl font-black mt-3'>
+                        Sell Your Products
                     </h1>
-                    <p className='text-lg md:text-2xl'>With <strong className='logo text-3xl md:text-5xl pl-2'>zosh bazzar</strong></p>
+                    <p className='text-lg md:text-2xl text-pink-100 mt-3'>With <strong className='logo text-3xl md:text-5xl pl-2 text-white'>ShopSphere</strong></p>
 
-                    <div className='pt-6 flex justify-center'>
+                    <div className='pt-6 flex'>
                         <Button
                             onClick={becomeSellerClick}
                             startIcon={<StorefrontIcon />}
                             variant="contained"
+                            className='brand-button'
                         >
                             Become Seller
                         </Button>
                     </div>
 
                 </div>
+                <img className='w-full h-full min-h-[240px] object-cover' src={"/seller_banner_image.jpg"} alt="Seller preparing products" />
 
+              </div>
             </section>
 
             <section className='fixed bottom-10 right-10'>

@@ -14,6 +14,7 @@ import com.shopsphere.repository.UserRepository;
 import com.shopsphere.response.ApiResponse;
 import com.shopsphere.response.FunctionResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.HttpEntity;
@@ -30,7 +31,8 @@ import java.util.List;
 public class AiChatBotServiceImpl implements AiChatBotService {
 
 
-    String GEMINI_API_KEY = "AIzaSyDp-jeRRqqbr08scpIn1p9rLEL_Nqv5Zuo";
+    @Value("${gemini.api.key}")
+    private String geminiApiKey;
 
     private final CartRepository cartRepository;
 
@@ -133,7 +135,7 @@ public class AiChatBotServiceImpl implements AiChatBotService {
 
 
     public FunctionResponse getFunctionResponse(String prompt, Long productId, Long userId) throws ProductException {
-        String GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + GEMINI_API_KEY;
+        String GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + geminiApiKey;
 
         JSONObject requestBodyJson = new JSONObject()
                 .put("contents", new JSONArray()
@@ -176,7 +178,7 @@ public class AiChatBotServiceImpl implements AiChatBotService {
 
     @Override
     public ApiResponse aiChatBot(String prompt, Long productId, Long userId) throws ProductException {
-        String GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + GEMINI_API_KEY;
+        String GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + geminiApiKey;
 
         System.out.println("------- " + prompt);
 

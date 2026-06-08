@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Home from '../customer/pages/Home/Home'
 import Products from '../customer/pages/Products/Products'
@@ -20,11 +20,14 @@ import Wishlist from '../customer/pages/Wishlist/Wishlist'
 import { getWishlistByUserId } from '../Redux Toolkit/Customer/WishlistSlice'
 import ChatBot from '../customer/pages/ChatBot/ChatBot'
 import SearchProducts from '../customer/pages/Search/SearchProducts'
+import About from '../customer/pages/Static/About'
+import Services from '../customer/pages/Static/Services'
+import Contact from '../customer/pages/Static/Contact'
 
 
 const CustomerRoutes = () => {
   const dispatch = useAppDispatch()
-    const { cart, auth } = useAppSelector(store => store);
+    const { auth } = useAppSelector(store => store);
 
     useEffect(() => {
         dispatch(fetchUserCart(localStorage.getItem("jwt") || ""))
@@ -38,6 +41,9 @@ const CustomerRoutes = () => {
         {/* <Route path='/chat-bot' element={<ChatBot />} /> */}
         <Route path='/products/:categoryId' element={<Products />} />
         <Route path='/search-products' element={<SearchProducts />} />
+        <Route path='/about' element={<About />} />
+        <Route path='/services' element={<Services />} />
+        <Route path='/contact' element={<Contact />} />
         <Route path='/reviews/:productId' element={<Reviews />} />
         <Route path='/reviews/:productId/create' element={<WriteReviews />} />
         <Route path='/product-details/:categoryId/:name/:productId' element={<ProductDetails />} />

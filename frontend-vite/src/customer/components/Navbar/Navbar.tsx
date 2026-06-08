@@ -8,7 +8,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Navbar.css";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import StorefrontIcon from "@mui/icons-material/Storefront";
@@ -17,9 +17,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { mainCategory } from "../../../data/category/mainCategory";
 import CategorySheet from "./CategorySheet";
 import DrawerList from "./DrawerList";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { useAppDispatch, useAppSelector } from "../../../Redux Toolkit/Store";
+import { useAppSelector } from "../../../Redux Toolkit/Store";
 import { FavoriteBorder } from "@mui/icons-material";
 
 
@@ -28,8 +28,7 @@ const Navbar = () => {
   const [selectedCategory, setSelectedCategory] = useState("men");
   const theme = useTheme();
   const isLarge = useMediaQuery(theme.breakpoints.up("lg"));
-  const dispatch = useAppDispatch();
-  const { user, auth, cart, sellers } = useAppSelector((store) => store);
+  const { user, cart, sellers } = useAppSelector((store) => store);
   const navigate = useNavigate();
   
 
@@ -52,9 +51,9 @@ const Navbar = () => {
   return (
     <Box
       sx={{ zIndex: 2 }}
-      className="sticky top-0 left-0 right-0 bg-white blur-bg bg-opacity-80 "
+      className="sticky top-0 left-0 right-0 bg-white blur-bg bg-opacity-90 shadow-sm"
     >
-      <div className="flex items-center justify-between px-5 lg:px-20 h-[70px] border-b">
+      <div className="flex items-center justify-between px-5 lg:px-20 h-[70px] border-b border-pink-100">
         <div className="flex items-center gap-9">
           <div className="flex items-center gap-2">
             {!isLarge && (
@@ -64,7 +63,7 @@ const Navbar = () => {
             )}
             <h1
               onClick={() => navigate("/")}
-              className="logo cursor-pointer text-lg md:text-2xl  text-[#00927c]"
+              className="logo cursor-pointer text-lg md:text-2xl brand-gradient-text"
             >
               ShopSphere
             </h1>
@@ -72,11 +71,17 @@ const Navbar = () => {
 
           {isLarge && (
             <ul
-              className="flex it
-          ems-center font-medium text-gray-800 "
+              className="flex items-center font-semibold text-gray-800"
             >
+              <li
+                onClick={() => navigate("/")}
+                className="mainCategory hover:text-pink-700 cursor-pointer hover:border-b-2 h-[70px] px-4 border-pink-700 flex items-center"
+              >
+                Home
+              </li>
               {mainCategory.map((item) => (
                 <li
+                  key={item.categoryId}
                   onMouseLeave={() => {
                     // setSelectedCategory("")
                     setShowSheet(false);
@@ -85,11 +90,17 @@ const Navbar = () => {
                     setSelectedCategory(item.categoryId);
                     setShowSheet(true);
                   }}
-                  className="mainCategory hover:text-[#00927c] cursor-pointer hover:border-b-2 h-[70px] px-4 border-[#00927c] flex items-center"
+                  className="mainCategory hover:text-pink-700 cursor-pointer hover:border-b-2 h-[70px] px-4 border-pink-700 flex items-center"
                 >
                   {item.name}
                 </li>
               ))}
+              <li
+                onClick={() => navigate("/services")}
+                className="mainCategory hover:text-pink-700 cursor-pointer hover:border-b-2 h-[70px] px-4 border-pink-700 flex items-center"
+              >
+                Services
+              </li>
             </ul>
           )}
         </div>
@@ -116,6 +127,7 @@ const Navbar = () => {
           ) : (
             <Button
               variant="contained"
+              className="brand-button"
               startIcon={<AccountCircleIcon sx={{ fontSize: "12px" }} />}
               onClick={() => navigate("/login")}
             >
@@ -142,6 +154,7 @@ const Navbar = () => {
               onClick={becomeSellerClick}
               startIcon={<StorefrontIcon />}
               variant="outlined"
+              className="brand-outline-button"
             >
               Become Seller
             </Button>

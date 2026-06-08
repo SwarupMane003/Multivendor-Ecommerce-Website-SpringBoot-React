@@ -1,10 +1,17 @@
 import { Box, Divider, List, ListItem, ListItemButton, ListItemText } from '@mui/material'
-import React, { useState } from 'react'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { mainCategory } from '../../../data/category/mainCategory'
 import CategorySheet from './CategorySheet';
 
 const DrawerList = ({toggleDrawer}:any) => {
     const [selectedCategory,setSelectedCategory]=useState("");
+    const navigate = useNavigate();
+
+    const goTo = (path: string) => {
+      navigate(path);
+      toggleDrawer(false)();
+    };
 
   return (
     <Box sx={{ width: 250 }} role="presentation" 
@@ -15,10 +22,15 @@ const DrawerList = ({toggleDrawer}:any) => {
       <ListItem>
         <ListItemButton>
 
-          <ListItemText primary={<h1 className='logo text-2xl text-[#00927c]'>ShopSphere</h1>} />
+          <ListItemText primary={<h1 className='logo text-2xl brand-gradient-text'>ShopSphere</h1>} />
         </ListItemButton>
       </ListItem>
       <Divider />
+      <ListItem disablePadding>
+        <ListItemButton onClick={() => goTo("/")}>
+          <ListItemText primary="Home" />
+        </ListItemButton>
+      </ListItem>
      
       {mainCategory.map((item) => <ListItem key={item.name} disablePadding>
         <ListItemButton onClick={()=>setSelectedCategory(item.categoryId)}>
@@ -26,6 +38,22 @@ const DrawerList = ({toggleDrawer}:any) => {
         </ListItemButton>
       </ListItem>
       )}
+      <Divider />
+      <ListItem disablePadding>
+        <ListItemButton onClick={() => goTo("/about")}>
+          <ListItemText primary="About" />
+        </ListItemButton>
+      </ListItem>
+      <ListItem disablePadding>
+        <ListItemButton onClick={() => goTo("/services")}>
+          <ListItemText primary="Services" />
+        </ListItemButton>
+      </ListItem>
+      <ListItem disablePadding>
+        <ListItemButton onClick={() => goTo("/contact")}>
+          <ListItemText primary="Contact" />
+        </ListItemButton>
+      </ListItem>
 
 
     </List>
